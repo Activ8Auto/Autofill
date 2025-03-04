@@ -2,6 +2,8 @@ from playwright.sync_api import sync_playwright
 import time
 import random
 from datetime import datetime
+import Dict
+
 
 MAX_RETRIES = 5  # Maximum number of full script retries
 total_minutes = 0
