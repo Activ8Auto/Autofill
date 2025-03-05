@@ -129,6 +129,12 @@ def fill_form(selected_date, run_headless):
             "medications":["Vraylar 3mg; "],
             "exclusion_group":"Bipolar"
         },
+        "Bipolar-2-3":{
+            "icd_code": "ICD-10 - F3181 - Bipolar II disorder",
+            "current_medications": ["Antipsychotics"],
+            "medications":["Latuda 20 mg; "],
+            "exclusion_group":"Bipolar"
+        },
         "Generalized Anxiety Disorder-1":{
             "icd_code": "ICD-10 - F411 - Generalized anxiety disorder",
             "current_medications": ["Antianxiety Medications"],
