@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright Automation</title>
+    <style>
+        #console {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            background-color: #f9f9f9;
+        }
+    </style>
+    <script>
+        let isRunning = false;
+        let controller = null;
+
+        async function runScript() {
+            const selected_date = document.getElementById("date").value;
+            const target_hours = document.getElementById("target_hours").value;
+            const run_headless = document.getElementById("headless").checked;
+            const min_wait = document.getElementById("min_wait").value;
+            const max_wait = document.getElementById("max_wait").value;
+            const test = document.getElementById("test").checked;
+
+            const payload = { selected_date, target_hours, run_headless, min_wait, max_wait, test };
+            console.log("Sending payload:", payload);
+
+            const consoleDiv = document.getElementById("console");
+            consoleDiv.innerHTML = "Starting automation...\n";
+            isRunning = true;
+            document.getElementById("startButton").disabled = true;
+            document.getElementById("cancelButton").disabled = false;
+
+            controller = new AbortController();
+            try {
+                const response = await fetch('/run-script', {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                    signal: controller.signal
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                while (isRunning) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        consoleDiv.innerHTML += "<br>Stream completed successfully.";
+                        break;
+                    }
+                    const chunk = decoder.decode(value);
+                    consoleDiv.innerHTML += chunk.replace(/\n/g, "<br>");
+                    consoleDiv.scrollTop = consoleDiv.scrollHeight;
+                }
+            } catch (e) {
+                if (e.name === 'AbortError') {
+                    consoleDiv.innerHTML += "<br>Automation canceled by user.";
+                } else {
+                    consoleDiv.innerHTML += `<br>Error: ${e.message || 'Network error occurred'}`;
+                }
+            } finally {
+                isRunning = false;
+                document.getElementById("startButton").disabled = false;
+                document.getElementById("cancelButton").disabled = true;
+                document.getElementById("status").innerText = "Automation stopped.";
+            }
+        }
+
+        async function cancelScript() {
+            if (isRunning && controller) {
+                controller.abort();
+                await fetch('/cancel', { method: "POST" });
+                isRunning = false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Automate Form Filling with Playwright</h2>
+    <label>Date:</label>
+    <input type="text" id="date" placeholder="Enter Date (e.g., 12)" required>
+    <br><br>
+
+    <label>Target Total Time (hours):</label>
+    <input type="number" id="target_hours" value="1" min="0.1" step="0.1" required>
+    <br><br>
+
+    <label>Run Headless:</label>
+    <input type="checkbox" id="headless" required>
+    <br><br>
+
+    <label>Min Wait (seconds):</label>
+    <input type="number" id="min_wait" value="30" min="1" required>
+    <br><br>
+
+    <label>Max Wait (seconds):</label>
+    <input type="number" id="max_wait" value="90" min="1" required>
+    <br><br>
+
+    <label>Test Mode (Skip Save):</label>
+    <input type="checkbox" id="test">
+    <br><br>
+
+    <button id="startButton" onclick="runScript()">Start Automation</button>
+    <button id="cancelButton" onclick="cancelScript()" disabled>Cancel</button>
+
+    <p id="status"></p>
+    <h3>Console Output:</h3>
+    <div id="console"></div>
+</body>
+</html>

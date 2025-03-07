@@ -1,0 +1,6 @@
+2025/03/07-16:10:58.749 8303 Reusing MANIFEST /Users/taylorandrews/Repos/Autofill/C:/Users/tjand/AppData/Local/Microsoft/Edge/User Data/Default/EdgeCoupons/coupons_data.db/MANIFEST-000001
+2025/03/07-16:10:58.760 8303 Recovering log #318
+2025/03/07-16:10:58.761 8303 Reusing old log /Users/taylorandrews/Repos/Autofill/C:/Users/tjand/AppData/Local/Microsoft/Edge/User Data/Default/EdgeCoupons/coupons_data.db/000318.log 
+2025/03/07-16:10:58.855 8207 Level-0 table #323: started
+2025/03/07-16:10:58.858 8207 Level-0 table #323: 668456 bytes OK
+2025/03/07-16:10:58.862 8207 Delete type=0 #318

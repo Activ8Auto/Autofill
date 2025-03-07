@@ -1,0 +1,15 @@
+2025/03/07-16:09:57.919 27a33 Reusing MANIFEST /Users/taylorandrews/Repos/Autofill/C:/Users/tjand/AppData/Local/Microsoft/Edge/User Data/Default/EdgeCoupons/coupons_data.db/MANIFEST-000001
+2025/03/07-16:09:57.921 27a33 Recovering log #315
+2025/03/07-16:09:57.925 27a33 Reusing old log /Users/taylorandrews/Repos/Autofill/C:/Users/tjand/AppData/Local/Microsoft/Edge/User Data/Default/EdgeCoupons/coupons_data.db/000315.log 
+2025/03/07-16:09:58.210 a807 Level-0 table #319: started
+2025/03/07-16:09:58.213 a807 Level-0 table #319: 668456 bytes OK
+2025/03/07-16:09:58.215 a807 Delete type=0 #315
+2025/03/07-16:09:58.216 a807 Compacting 4@0 + 1@1 files
+2025/03/07-16:09:58.221 a807 Generated table #320@0: 3 keys, 668456 bytes
+2025/03/07-16:09:58.221 a807 Compacted 4@0 + 1@1 files => 668456 bytes
+2025/03/07-16:09:58.222 a807 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/03/07-16:09:58.222 a807 Delete type=2 #316
+2025/03/07-16:09:58.222 a807 Delete type=2 #307
+2025/03/07-16:09:58.222 a807 Delete type=2 #313
+2025/03/07-16:09:58.222 a807 Delete type=2 #310
+2025/03/07-16:09:58.222 a807 Delete type=2 #319
